@@ -1,0 +1,52 @@
+version: '3.9'
+
+services:
+  nginx:
+    image: nginx:stable
+    restart: on-failure
+    container_name: "${DOCKER_PREFIX}_nginx"
+    volumes:
+      - ./app:/var/www/app
+      - ./docker/logs/nginx:/var/log/nginx
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - symfony-var:/var/www/app/var # create a volume for symfony var folder to avoid synchronization problem between host and quest(docker)
+    ports:
+      - '${NGINX_PORT}:80'
+    networks:
+      - php-network # it must work at the same network
+
+  php:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    container_name: "${DOCKER_PREFIX}_php"
+    volumes:
+      - ./app:/var/www/app
+   # @todo Logi php
+      - ./docker/logs/php:/logs
+      - symfony-var:/usr/src/app/var
+    networks:
+      - php-network # it must work at the same network
+
+  mysql:
+    image: mysql:8
+    container_name: "${DOCKER_PREFIX}_mysql"
+    volumes:
+      - ./docker/logs/mysql:/var/log/mysql:cached
+      - mysql-data:/var/lib/mysql
+    ports:
+      - '${MYSQL_PORT}:3306'
+    networks:
+      - php-network
+    restart: on-failure
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+
+networks:
+  php-network:
+    driver: bridge
+
+volumes:
+  mysql-data: # creates volume for mysql data to keep persistent between docker stop/start down/up
+  symfony-var: # sync performance for development - var is a lot of small files that are changed and must be sync host/quest every application request
