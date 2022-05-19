@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\ValueObject\Exception;
 
-use App\Shared\Domain\InvalidDomainArgumentException;
+use App\Shared\Exception\InvalidDomainArgumentException;
 
 /**
  * Class {InvalidUuidException}

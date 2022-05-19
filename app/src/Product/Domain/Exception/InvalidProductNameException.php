@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Product\Domain\Exception;
 
 use App\Product\Domain\Product;
-use App\Shared\Domain\InvalidDomainArgumentException;
+use App\Shared\Exception\InvalidDomainArgumentException;
 
 /**
  * Class {InvalidProductNameException}

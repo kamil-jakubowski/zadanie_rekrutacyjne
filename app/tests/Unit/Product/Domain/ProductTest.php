@@ -7,6 +7,7 @@ use App\Product\Domain\Exception\InvalidProductNameException;
 use App\Product\Domain\Exception\InvalidProductPriceException;
 use App\Product\Domain\Product;
 use App\Shared\Domain\ValueObject\Uuid;
+use App\Tests\Helper\ProductTestHelper;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,6 +16,8 @@ use PHPUnit\Framework\TestCase;
  */
 class ProductTest extends TestCase
 {
+    use ProductTestHelper;
+
     public function testNewCreateProductSuccessWithNewIdentity(): void
     {
         // Given
@@ -112,43 +115,5 @@ class ProductTest extends TestCase
 
         // When
         Product::createNew($validName, 0);
-    }
-
-    private function generateString(int $length): string
-    {
-        $characters = range('A', 'z');
-        $name = '';
-        for ($i=0; $i<$length ; $i++) {
-            $char = $characters[rand(0,count($characters)-1)];
-            $name .= $char;
-        }
-
-        return $name;
-    }
-
-    private function generateTooLongProductName(): string
-    {
-        return $this->generateString(Product::MAX_NAME_LENGTH+1);
-    }
-
-    private function generateTooShortProductName(): string
-    {
-        return $this->generateString(Product::MIN_NAME_LENGTH-1);
-    }
-
-    private function generateValidProductName(): string
-    {
-        $min = (Product::MIN_NAME_LENGTH < 0) ? 0 : Product::MIN_NAME_LENGTH;
-        return $this->generateString($min);
-    }
-
-    private function generateValidPrice(): float
-    {
-        return round(Product::MAX_PRODUCT_PRICE - 0.1, 2);
-    }
-
-    private function generatePriceGreaterThanMax(): float
-    {
-        return round(Product::MAX_PRODUCT_PRICE + 1, 2);
     }
 }

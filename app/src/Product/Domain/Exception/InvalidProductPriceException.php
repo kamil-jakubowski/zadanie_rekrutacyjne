@@ -3,9 +3,7 @@ declare(strict_types=1);
 
 namespace App\Product\Domain\Exception;
 
-use App\Shared\Domain\InvalidDomainArgumentException;
-use JetBrains\PhpStorm\Internal\LanguageLevelTypeAware;
-use JetBrains\PhpStorm\Pure;
+use App\Shared\Exception\InvalidDomainArgumentException;
 
 /**
  * An exception to th
