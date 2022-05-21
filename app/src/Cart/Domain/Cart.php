@@ -7,13 +7,14 @@ use App\Cart\Domain\Exception\CartMaximumProductsReachedException;
 use App\Cart\Domain\Exception\NotCartProductException;
 use App\Cart\Domain\Exception\ProductAlreadyExistsInCartException;
 use App\Cart\Domain\Exception\ProductDoesNotExistsInCartException;
-use App\Product\Domain\Collection\ProductCollection;
 use App\Product\Domain\Product;
 use App\Shared\Domain\Interfaces\Entity as EntityInterface;
 use App\Shared\Domain\Traits\DateCreationTrait;
 use App\Shared\Domain\Traits\Entity as EntityTrait;
 use App\Shared\Domain\ValueObject\Uuid;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Class {Cart}
@@ -29,20 +30,20 @@ class Cart implements EntityInterface
     // information of date created
     use DateCreationTrait;
 
-    protected ProductCollection $products;
+    protected Collection $products;
 
     /**
      * Cart constructor
      * Domain object constructor should be private/protected and created only by static factories to encapsulate identity (id uuid) and metadata
      * Infrastructure child object can create another methods to override/set identity of already persisted entity in the infrastructure (like Doctrine ORM entity proxies do for example)
      *
-     * @param ProductCollection $products
+     * @param ArrayCollection $products
      * @param int|null $id
      * @param Uuid|null $uuid
      * @param DateTimeImmutable|null $createdDate
      */
     protected function __construct(
-        ProductCollection $products = null,
+        ArrayCollection $products = null,
         ?int $id = null,
         ?Uuid $uuid = null,
         ?DateTimeImmutable $createdDate = null
@@ -51,12 +52,12 @@ class Cart implements EntityInterface
         $this->setupIdentity($id, $uuid);
         $this->setupCreatedDate($createdDate);
 
-        $this->products = ($products !== null) ? $products : new ProductCollection();
+        $this->products = ($products !== null) ? $products : new ArrayCollection();
     }
 
     static public function createNew(array $products = []) : static
     {
-        return new static(new ProductCollection($products));
+        return new static(new ArrayCollection($products));
     }
 
     /**
@@ -90,11 +91,11 @@ class Cart implements EntityInterface
 
     /**
      * Get collection of Products
-     * @return ProductCollection
+     * @return array - not returing collection to avoid external manipulation of collection which can affect unwanted collection of product changes
      */
-    public function getProducts(): ProductCollection
+    public function getProducts(): array
     {
-        return $this->products;
+        return $this->products->toArray();
     }
 
     public function hasProductInCart(Product $product): bool

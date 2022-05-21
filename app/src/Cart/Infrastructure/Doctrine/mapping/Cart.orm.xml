@@ -1,0 +1,31 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Cart\Domain\Cart" table="cart">
+
+        <id name="id" column="id" type="integer">
+            <generator strategy="IDENTITY" />
+        </id>
+
+        <field name="uuid" column="uuid" type="vo_uuid" nullable="false" />
+
+        <field name="dateCreated" column="date_created" type="datetimetz_immutable" nullable="true" />
+
+        <many-to-many field="products" target-entity="App\Product\Domain\Product">
+            <join-table name="cart_products">
+                <join-columns>
+                    <join-column name="id_cart" referenced-column-name="id" on-delete="CASCADE" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="id_product" referenced-column-name="id" on-delete="CASCADE" />
+                </inverse-join-columns>
+            </join-table>
+            <cascade>
+                <cascade-persist />
+            </cascade>
+        </many-to-many>
+    </entity>
+
+</doctrine-mapping>

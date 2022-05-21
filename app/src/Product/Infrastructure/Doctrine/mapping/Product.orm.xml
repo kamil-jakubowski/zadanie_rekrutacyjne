@@ -1,0 +1,27 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Product\Domain\Product" table="product" repository-class="App\Product\Infrastructure\Doctrine\Repository\ProductRepository">
+
+        <id name="id" column="id" type="integer">
+            <generator strategy="IDENTITY" />
+        </id>
+
+        <field name="uuid" column="uuid" type="vo_uuid" nullable="false" />
+
+        <field name="dateCreated" column="date_created" type="datetimetz_immutable" nullable="true" />
+
+        <field name="name" column="name" type="string" nullable="false" length="50"/>
+
+        <!-- See what I wrote in Product::$price doc. In more complex financial application I will prefer to not use
+            floats, but decimal
+            Doctrine maps decimal in PHP to string, so I will stay with doctrine float (double precision in MySQL like in PHP)
+            to avoid problems with mapping value to Entity
+        -->
+        <field name="price" column="price" type="float" nullable="false"/>
+
+    </entity>
+
+</doctrine-mapping>

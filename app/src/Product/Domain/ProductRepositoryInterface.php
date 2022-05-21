@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace App\Product\Domain;
 
-use App\Domain\Shared\ValueObject\Uuid;
+use App\Shared\Domain\ValueObject\Uuid;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Interface {ProductRepositoryInterface}
@@ -22,5 +23,19 @@ interface ProductRepositoryInterface
      */
     public function findProductByUuid(Uuid $uuid): ?Product;
 
-    public function getProductsList(); // @todo to extend
+    /**
+     * Find product by given id, return product if exists, return null if not
+     * @param int $id
+     * @return Product|null
+     */
+    public function findProductById(int $id): ?Product;
+
+    /**
+     * Find product by given name, return product if exists, return null if not
+     * @param string $name
+     * @return Product|null
+     */
+    public function findProductByName(string $name): ?Product;
+
+    public function getProductsList(int $offset, int $limit): array;
 }

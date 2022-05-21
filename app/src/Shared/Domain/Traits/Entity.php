@@ -57,4 +57,12 @@ trait Entity
     {
         return $this->uuid;
     }
+
+    /**
+     * @return bool
+     */
+    public function hasId(): bool
+    {
+        return $this->getId() !== null;
+    }
 }

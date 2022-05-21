@@ -40,6 +40,11 @@ class Product implements EntityInterface
      * Must be positive number.
      * Max float precision is 2.
      * Must be no greather than MAX_PRODUCT_PRICE
+     *
+     * @todo 1. It could be a ValueObject Money, to encapsulate its validation
+     * @todo 2. For recruitment task purposes and from its specification I've assumed that all prices can be only in one currency. If curencies could be different Money ValueObject would be all the more neccessary, to encapsulate price and currency
+     * @todo 3. For more "financal" purposes I will definetly avoid using pure floats(even when float is a double in PHP actually). I will use some library that imitate lack of DOUBLES in PHP: e.q. http://php-decimal.io OR https://github.com/brick/money and hide that dependency it in ValueObject interface to make sure that only one object in whole domain depends on 3rd party and rest of domain use only ValueObject interface.
+     *
      * @var float
      */
     protected float $price;

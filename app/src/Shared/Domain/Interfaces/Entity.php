@@ -27,4 +27,10 @@ interface Entity
      * @return mixed
      */
     public function getUuid();
+
+    /**
+     * Does it persisted?
+     * @return bool
+     */
+    public function hasId(): bool;
 }

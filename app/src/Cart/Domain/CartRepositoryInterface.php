@@ -12,9 +12,10 @@ use App\Shared\Domain\ValueObject\Uuid;
  */
 interface CartRepositoryInterface
 {
-    public function createNewCart(): void;
+    public function createNewCart(Cart $cart): void;
 
     public function updateCart(Cart $cart): void;
+    public function removeCart(Cart $cart): void;
 
-    public function getCart(Uuid $uuid): Cart;
+    public function findCartByUuid(Uuid $uuid): ?Cart;
 }
