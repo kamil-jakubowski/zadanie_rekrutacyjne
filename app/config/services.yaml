@@ -22,3 +22,12 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    #CQRS Automatic register CommandHandlers and QueryHadlers as services of symfony messenger with proper bus association
+    _instanceof:
+        App\Shared\CQRS\Command\CommandHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: command.bus }
+        App\Shared\CQRS\Query\QueryHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: query.bus }
