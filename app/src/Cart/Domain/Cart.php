@@ -8,6 +8,7 @@ use App\Cart\Domain\Exception\NotCartProductException;
 use App\Cart\Domain\Exception\ProductAlreadyExistsInCartException;
 use App\Cart\Domain\Exception\ProductDoesNotExistsInCartException;
 use App\Product\Domain\Product;
+use App\Shared\Domain\Interfaces\DateCreationInterface;
 use App\Shared\Domain\Interfaces\Entity as EntityInterface;
 use App\Shared\Domain\Traits\DateCreationTrait;
 use App\Shared\Domain\Traits\Entity as EntityTrait;
@@ -20,7 +21,7 @@ use Doctrine\Common\Collections\Collection;
  * Class {Cart}
  * @author Kamil Jakubowski <kamil.jakubowski@gmail.com>
  */
-class Cart implements EntityInterface
+class Cart implements EntityInterface, DateCreationInterface
 {
     // maximum products in the cart
     public const MAX_PRODUCTS_IN_CART = 3;

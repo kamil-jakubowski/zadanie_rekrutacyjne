@@ -5,6 +5,7 @@ namespace App\Product\Domain;
 
 use App\Product\Domain\Exception\InvalidProductNameException;
 use App\Product\Domain\Exception\InvalidProductPriceException;
+use App\Shared\Domain\Interfaces\DateCreationInterface;
 use App\Shared\Domain\Traits\DateCreationTrait;
 use \App\Shared\Domain\Interfaces\Entity as EntityInterface;
 use App\Shared\Domain\Traits\Entity as EntityTrait;
@@ -15,7 +16,7 @@ use DateTimeImmutable;
  * Class {Product}
  * @author Kamil Jakubowski <kamil.jakubowski@gmail.com>
  */
-class Product implements EntityInterface
+class Product implements EntityInterface, DateCreationInterface
 {
     public const MAX_NAME_LENGTH = 50;
     public const MIN_NAME_LENGTH = 3;
