@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Shared\CQRS;
+namespace App\Shared\Infrastructure\CQRS;
 
 use App\Shared\CQRS\Command\CommandBusInterface;
 use App\Shared\CQRS\Command\CommandInterface;

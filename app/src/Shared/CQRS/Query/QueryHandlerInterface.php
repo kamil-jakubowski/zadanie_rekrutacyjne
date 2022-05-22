@@ -6,10 +6,10 @@ namespace App\Shared\CQRS\Query;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 /**
- * Interface {QueryHandlerInterface}
+ * Empty interface, applies to classes to recognize handlers for queries
  * @author Kamil Jakubowski <kamil.jakubowski@gmail.com>
  */
-interface QueryHandlerInterface extends MessageHandlerInterface
+interface QueryHandlerInterface
 {
 
 }

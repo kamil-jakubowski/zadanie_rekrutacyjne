@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace App\Shared\CQRS\Query;
 
 /**
- * Empty interface to implements to recognize Query classes
+ * Class {InvalidQueryArgumentException}
  * @author Kamil Jakubowski <kamil.jakubowski@gmail.com>
  */
-interface QueryInterface
+class InvalidQueryArgumentException extends \InvalidArgumentException
 {
 
 }

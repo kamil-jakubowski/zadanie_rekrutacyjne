@@ -2,6 +2,16 @@ controllers:
     resource: ../src/Controller/
     type: annotation
 
+cart_api_controllers:
+    resource: ../src/Cart/UI/Api/Controller
+    type: annotation
+    prefix: api
+
+product_api_controllers:
+    resource: ../src/Product/UI/Api/Controller
+    type: annotation
+    prefix: api
+
 kernel:
     resource: ../src/Kernel.php
     type: annotation
