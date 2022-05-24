@@ -8,7 +8,11 @@ use App\Cart\Domain\Exception\InvalidCartProductQuantityException;
 use App\Shared\Domain\ValueObject\Uuid;
 
 /**
+ * @deprecated
  * Class represent product and its quantity in the cart
+ * IMPORTANT: It's finally unused and should be deleted but I leave it for discussion - that class was created
+ * because firstly I've misinterpreted the task specification, that was not 100% clear for me about it.
+ * Normally I would ask about it the client (I can be fatiguing about it believe me), but due to lack of free time to do that task, time for waiting for an answer I've made a decision that interpretation that it could be only one product of the same identity in the cart (not many the same products like in every e-commerce) and I will leave that class to proof that I also assumed this variant :)
  * @author Kamil Jakubowski <kamil.jakubowski@gmail.com>
  */
 class CartProduct
