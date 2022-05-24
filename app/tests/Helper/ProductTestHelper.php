@@ -48,4 +48,13 @@ trait ProductTestHelper
     {
         return round(Product::MAX_PRODUCT_PRICE + 1, 2);
     }
+
+    /**
+     * Generates new valid product with random valid data
+     * @return Product
+     */
+    private function getNewProduct(): Product
+    {
+        return Product::createNew($this->generateValidProductName(), $this->generateValidPrice());
+    }
 }

@@ -19,7 +19,7 @@ class UuidTest extends TestCase
         $uuid = Uuid::fromString($uuidStringValid);
 
         // Then
-        $this->assertEquals($uuidStringValid, $uuid->toString());
+        $this->assertSame($uuidStringValid, $uuid->toString());
     }
 
     public function testUuidCreationFromStringNotValidShouldFailed(): void
@@ -60,7 +60,7 @@ class UuidTest extends TestCase
         // Then
         $this->assertTrue(is_string($stringMethod));
         $this->assertTrue(is_string($stringMethodMagic));
-        $this->assertEquals(self::VALID_UUID1, $stringMethod);
-        $this->assertEquals(self::VALID_UUID1, $stringMethodMagic);
+        $this->assertSame(self::VALID_UUID1, $stringMethod);
+        $this->assertSame(self::VALID_UUID1, $stringMethodMagic);
     }
 }

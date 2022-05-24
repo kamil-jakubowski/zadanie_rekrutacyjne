@@ -23,8 +23,8 @@ class CartProductTest extends TestCase
         $cartProduct = CartProduct::create($product);
 
         // Then
-        $this->assertEquals($product, $cartProduct->getProduct());
-        $this->assertEquals(1, $cartProduct->getQuantity());
+        $this->assertSame($product, $cartProduct->getProduct());
+        $this->assertSame(1, $cartProduct->getQuantity());
     }
 
     public function testChangeCartProductQuantity(): void
@@ -38,7 +38,7 @@ class CartProductTest extends TestCase
         $cartProduct->changeProductQuantity($quantity);
 
         // Then
-        $this->assertEquals($cartProduct->getQuantity($product), 5);
+        $this->assertSame($cartProduct->getQuantity($product), 5);
     }
 
     public function testChangeCartProductQuantityWithNegativeShouldFail(): void
@@ -80,7 +80,7 @@ class CartProductTest extends TestCase
         $cartProduct->increaseProductQuantity($increase);
 
         // Then
-        $this->assertEquals($cartProduct->getQuantity($product), $quantity += $increase);
+        $this->assertSame($cartProduct->getQuantity($product), $quantity += $increase);
     }
 
     public function testIncreaseCartProductQuantityWithNegativeShouldFail(): void

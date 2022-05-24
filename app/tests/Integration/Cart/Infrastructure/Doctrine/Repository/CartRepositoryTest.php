@@ -48,7 +48,7 @@ class CartRepositoryTest extends KernelTestCase
 
         // Then
         $this->assertNotNull($foundCart);
-        $this->assertEquals($foundCart->getId(), $id);
+        $this->assertSame($foundCart->getId(), $id);
     }
 
     public function testRemoveCartShouldSuccess()
@@ -103,7 +103,7 @@ class CartRepositoryTest extends KernelTestCase
         $cart = $this->cartRepository->find($cartId);
 
         $this->assertIsObject($cart);
-        $this->assertEquals(count($cart->getProducts()), $quantityProducts+1);
+        $this->assertSame(count($cart->getProducts()), $quantityProducts+1);
     }
 
     public function testRemoveProductFromCartShouldSuccess()
@@ -127,6 +127,6 @@ class CartRepositoryTest extends KernelTestCase
         $cart = $this->cartRepository->find($id);
 
         $this->assertIsObject($cart);
-        $this->assertEquals(count($cart->getProducts()), $quantityOfProducts-1);
+        $this->assertSame(count($cart->getProducts()), $quantityOfProducts-1);
     }
 }

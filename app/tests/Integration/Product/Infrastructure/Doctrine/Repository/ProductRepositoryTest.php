@@ -44,7 +44,7 @@ class ProductRepositoryTest extends KernelTestCase
         $product = $this->productRepository->findProductByName($existingNameInFixtures);
 
         // Then
-        $this->assertEquals($product->getName(), $existingNameInFixtures);
+        $this->assertSame($product->getName(), $existingNameInFixtures);
 
         return $product;
     }
@@ -63,7 +63,7 @@ class ProductRepositoryTest extends KernelTestCase
         $product2 = $this->productRepository->findProductByUuid($uuid);
 
         // Then
-        $this->assertEquals($product->getUuid()->toString(), $product2->getUuid()->toString());
+        $this->assertSame($product->getUuid()->toString(), $product2->getUuid()->toString());
     }
 
     /**
@@ -80,7 +80,7 @@ class ProductRepositoryTest extends KernelTestCase
         $product2 = $this->productRepository->findProductById($id);
 
         // Then
-        $this->assertEquals($product->getUuid()->toString(), $product2->getUuid()->toString());
+        $this->assertSame($product->getUuid()->toString(), $product2->getUuid()->toString());
     }
 
     public function testAddProductShouldSuccess()
@@ -97,8 +97,8 @@ class ProductRepositoryTest extends KernelTestCase
         $this->assertNotNull($product->getId());
         $findProduct = $this->productRepository->findProductByName($name);
         $findProduct2 = $this->productRepository->findProductByUuid($product->getUuid());
-        $this->assertEquals($findProduct->getId(), $product->getId());
-        $this->assertEquals($findProduct2->getId(), $product->getId());
+        $this->assertSame($findProduct->getId(), $product->getId());
+        $this->assertSame($findProduct2->getId(), $product->getId());
     }
 
     public function testAddProductTryingAddExistingPersistedProductShouldFail(): void
@@ -127,9 +127,9 @@ class ProductRepositoryTest extends KernelTestCase
 
         // Then
         $findThatProductByNewName = $this->productRepository->findProductByName($newName);
-        $this->assertEquals($findThatProductByNewName->getId(), $existingProduct->getId());
-        $this->assertEquals($findThatProductByNewName->getName(), $existingProduct->getName());
-        $this->assertEquals($findThatProductByNewName->getPrice(), $existingProduct->getPrice());
+        $this->assertSame($findThatProductByNewName->getId(), $existingProduct->getId());
+        $this->assertSame($findThatProductByNewName->getName(), $existingProduct->getName());
+        $this->assertSame($findThatProductByNewName->getPrice(), $existingProduct->getPrice());
     }
 
     public function testUpdateProductTryingWithNotPersistedProductShouldFail(): void
@@ -192,6 +192,21 @@ class ProductRepositoryTest extends KernelTestCase
         $firstProduct = $list[0];
         $this->assertCount(3, $list);
         $secondProductInTable = $this->productRepository->findProductByName(ProductFixtures::PRODUCT_INFO[1]['name']);
-        $this->assertEquals($firstProduct->getId(), $secondProductInTable->getId());
+        $this->assertSame($firstProduct->getId(), $secondProductInTable->getId());
+    }
+
+    public function testGetQuantityOfAllShouldSuccess(): void
+    {
+        // Given
+        $knownProductsQuantity = count(ProductFixtures::PRODUCT_INFO);
+
+        // When
+        $quantity = $this->productRepository->getAllProductsQuantity();
+        $this->productRepository->addProduct(Product::createNew($this->generateValidProductName(), $this->generateValidPrice()));
+        $quantityAfterAdd = $this->productRepository->getAllProductsQuantity();
+
+        // then
+        $this->assertSame($quantity, $knownProductsQuantity);
+        $this->assertSame($quantityAfterAdd, $knownProductsQuantity+1);
     }
 }

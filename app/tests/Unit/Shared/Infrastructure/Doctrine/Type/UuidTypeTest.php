@@ -46,7 +46,7 @@ class UuidTypeTest extends TestCase
 
         // Then
         $this->assertIsString($return);
-        $this->assertEquals($return, $value);
+        $this->assertSame($return, $value);
     }
 
     public function testConvertNotValidStringUuidToDatabaseValueShouldSuccess()
@@ -71,7 +71,7 @@ class UuidTypeTest extends TestCase
 
         // Then
         $this->assertIsString($return);
-        $this->assertEquals($return, $this->validUuid);
+        $this->assertSame($return, $this->validUuid);
     }
 
     public function testConvertNotExpectedToDatabaseValueShouldFail(): void

@@ -17,6 +17,6 @@ class CartTest extends TestCase
         $cart = Cart::createNew([]);
 
         // Then
-        $this->assertEquals([], $cart->getProducts());
+        $this->assertSame([], $cart->getProducts());
     }
 }

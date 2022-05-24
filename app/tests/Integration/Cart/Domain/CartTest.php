@@ -30,10 +30,10 @@ class CartTest extends TestCase
         // Then
         $this->assertTrue($cart->hasProductInCart($product1));
         $this->assertTrue($cart->hasProductInCart($product2));
-        $this->assertEquals($product1->getName(), $cart->getProduct($product1)->getName());
-        $this->assertEquals($product2->getName(), $cart->getProduct($product2)->getName());
-        $this->assertEquals($product1->getPrice(), $cart->getProduct($product1)->getPrice());
-        $this->assertEquals($product2->getPrice(), $cart->getProduct($product2)->getPrice());
+        $this->assertSame($product1->getName(), $cart->getProduct($product1)->getName());
+        $this->assertSame($product2->getName(), $cart->getProduct($product2)->getName());
+        $this->assertSame($product1->getPrice(), $cart->getProduct($product1)->getPrice());
+        $this->assertSame($product2->getPrice(), $cart->getProduct($product2)->getPrice());
     }
 
     public function testAddNotExistedProductToCartShouldSuccess(): void

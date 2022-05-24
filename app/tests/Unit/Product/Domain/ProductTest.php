@@ -28,9 +28,9 @@ class ProductTest extends TestCase
         $product = Product::createNew($name, $price);
 
         // Then
-        $this->assertEquals($name, $product->getName());
-        $this->assertEquals($price, $product->getPrice());
-        $this->assertEquals(null, $product->getId());
+        $this->assertSame($name, $product->getName());
+        $this->assertSame($price, $product->getPrice());
+        $this->assertSame(null, $product->getId());
         $this->assertTrue($product->getUuid() instanceof Uuid);
         $this->assertNotNull($product->getDateCreated());
     }
