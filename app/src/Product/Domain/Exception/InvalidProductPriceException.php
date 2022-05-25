@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Product\Domain\Exception;
 
+use App\Product\Domain\Product;
 use App\Shared\Exception\InvalidDomainArgumentException;
 
 /**
@@ -53,7 +54,8 @@ class InvalidProductPriceException extends InvalidDomainArgumentException
     static private function getMessageTooHigh(float $price): string
     {
         return sprintf(
-            "The price is zero. given %d",
+            "The price to high, max is: %d. given %d",
+            Product::MAX_PRODUCT_PRICE,
             $price
         );
     }

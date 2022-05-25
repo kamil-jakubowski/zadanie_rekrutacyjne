@@ -5,6 +5,7 @@ framework:
         buses:
             command.bus:
                 middleware:
+                    - validation # validate command before handling it
                     - doctrine_transaction # every command handling will be in automatic doctrine transaction
             query.bus: ~
             event.bus: ~

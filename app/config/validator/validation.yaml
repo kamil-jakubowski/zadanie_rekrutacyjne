@@ -1,0 +1,36 @@
+App\Product\Application\Command\CreateProduct\CreateProductCommand:
+    properties:
+      name:
+        - NotBlank: ~
+        - Type:
+            type: string
+        - Length:
+            min: 3
+            max: 50
+      price:
+        - Type:
+            type: float
+        - LessThanOrEqual:
+            value: 1000000
+        - GreaterThan:
+            value: 0
+
+App\Product\Application\Command\UpdateProductName\UpdateProductNameCommand:
+  properties:
+    name:
+      - NotBlank: ~
+      - Type:
+          type: string
+      - Length:
+          min: 3
+          max: 50
+
+App\Product\Application\Command\UpdateProductPrice\UpdateProductPriceCommand:
+  properties:
+    price:
+      - Type:
+          type: float
+      - LessThanOrEqual:
+          value: 1000000
+      - GreaterThan:
+          value: 0

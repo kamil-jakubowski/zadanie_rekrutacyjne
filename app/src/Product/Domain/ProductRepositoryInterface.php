@@ -38,4 +38,6 @@ interface ProductRepositoryInterface
     public function findProductByName(string $name): ?Product;
 
     public function getProductsList(int $offset, int $limit): array;
+
+    public function getAllProductsQuantity(): int;
 }

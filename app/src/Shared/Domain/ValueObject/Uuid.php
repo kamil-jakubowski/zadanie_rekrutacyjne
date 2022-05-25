@@ -6,6 +6,7 @@ namespace App\Shared\Domain\ValueObject;
 use App\Shared\Domain\ValueObject\Exception\InvalidUuidException;
 use Ramsey\Uuid\Lazy\LazyUuidFromString;
 use Ramsey\Uuid\Rfc4122\UuidV1;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * Class {Uuid}
@@ -14,12 +15,11 @@ use Ramsey\Uuid\Rfc4122\UuidV1;
 class Uuid
 {
     /**
-     * Uuidv1 chosen because it has timestamp included which helps with database index sorting
-     * @var UuidV1 Uu
+     * @var UuidInterface Uu
      */
-    private UuidV1 $value;
+    private UuidInterface $value;
 
-    private function __construct(UuidV1 $value)
+    private function __construct(UuidInterface $value)
     {
         $this->value = $value;
     }
@@ -32,15 +32,6 @@ class Uuid
 
         $uuid = \Ramsey\Uuid\Uuid::fromString($value);
 
-        if ($uuid instanceof LazyUuidFromString) {
-            try {
-                $uuid = $uuid->toUuidV1();
-            }
-            catch (\Exception $e) {
-                InvalidUuidException::notUuidString($value);
-            }
-        }
-
         return new self($uuid);
     }
 
@@ -48,6 +39,7 @@ class Uuid
     {
         $uuid = \Ramsey\Uuid\Uuid::uuid1();
 
+        // Uuidv1 chosen because it has timestamp included which helps with database index sorting
         if ($uuid instanceof LazyUuidFromString) {
             $uuid = $uuid->toUuidV1();
         }

@@ -132,4 +132,13 @@ class ProductRepository extends ServiceEntityRepository implements ProductReposi
         return $products;
     }
 
+    public function getAllProductsQuantity(): int
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->select("count(p.id)");
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+
 }
